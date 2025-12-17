@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "${FE_PORT}:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+    networks:
+      - frontend-net
+    environment:
+      - BACKEND_URL=http://backend:80
+
+  backend:
+    build: ./backend
+    ports:
+      - "${BE_PORT}:80"
+    volumes:
+      - ./backend:/app
+    networks:
+      - frontend-net
+      - db-net
+    healthcheck:
+      test:
+        ["CMD-SHELL", "wget http://localhost/health >/dev/null 2>&1 || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  db:
+    image: nginx
+    networks:
+      - db-net
+
+networks:
+  frontend-net:
+  db-net:
