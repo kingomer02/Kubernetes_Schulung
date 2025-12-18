@@ -5,9 +5,15 @@ from datetime import datetime
 
 hostname = os.uname()[1]
 ips = socket.gethostbyname_ex(hostname)[2]
+app_version = os.getenv("APP_VERSION", "dev")
 
 
 app = Flask(__name__)
+
+
+@app.route('/health')
+def health():
+    return {"status": "ok", "version": app_version, "hostname": hostname}
 
 
 @app.route('/')
@@ -16,7 +22,13 @@ def index():
     with open("/data/access.log", "a+") as f:
         f.write(f"{datetime.now()}: IP: {ips} \n")
 
-    return {"ip": str(ips), "username": "root", "now": datetime.now()}
+    return {
+        "ip": str(ips),
+        "hostname": hostname,
+        "version": app_version,
+        "username": "root",
+        "now": datetime.now().isoformat(),
+    }
 
 
-app.run(host='0.0.0.0', port=80, debug=True)
+app.run(host="0.0.0.0", port=80, debug=False)
