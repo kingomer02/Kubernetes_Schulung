@@ -26,11 +26,11 @@ def health():
 @app.route('/')
 def index():
 
-    # os.makedirs("/data", exist_ok=True)
-    # with open("/data/access.log", "a+") as f:
-    #     f.write(f"{datetime.now()}: IP: {ips} \n")
+    os.makedirs("/data", exist_ok=True)
+    with open("/data/access.log", "a+") as f:
+        f.write(f"{datetime.now()}: IP: {ips} \n")
 
-    # backend_response = requests.get(backend_url).text
+    backend_response = requests.get(backend_url).text
 
     try:
         backend_response = requests.get(backend_url, timeout=2).text
@@ -40,7 +40,7 @@ def index():
     # backend_response = "Not yet!"
     return (
         f"<html style='background:{bg_color}; font-family: sans-serif;'>"
-        f"<h2>Sushi‑Bar Frontend ({app_version})</h2>"
+        f"<h2>Sushi‑Bar Frontend Hallo ({app_version})</h2>"
         f"<p><b>Pod:</b> {hostname} | <b>IP:</b> {ips}</p>"
         f"<p><b>Backend URL:</b> {backend_url}</p>"
         f"<pre style='background:#fff; padding:12px; border-radius:8px;'>"
