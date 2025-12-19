@@ -37,7 +37,7 @@ Schau dir an:
 ### B) Chart prüfen
 
 - `helm lint helm/sushi-bar`
-- (optional) `helm template sushi helm/sushi-bar | Select-String \"kind:\"`
+- (optional) `helm template sushi helm/sushi-bar | Select-String "kind:"`
 
 ### C) Install (Release v1)
 
