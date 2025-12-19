@@ -1,0 +1,7 @@
+apiVersion: v2
+name: sushi-bar
+description: Mini-Training-Chart (Frontend + Backend) für Kubernetes Übungen
+type: application
+version: 0.1.0
+appVersion: "1.0"
+

@@ -1,0 +1,11 @@
+Sushi-Bar wurde installiert.
+
+1) Status prüfen:
+  kubectl get deploy,po,svc -n {{ .Release.Namespace }}
+
+2) Frontend erreichbar machen (Port-forward):
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "sushi-bar.fullname" . }}-frontend 8080:80
+  http://localhost:8080
+
+3) Upgrade-Beispiel:
+  helm upgrade {{ .Release.Name }} {{ .Chart.Name }} -n {{ .Release.Namespace }} --set frontend.replicaCount=2 --set frontend.env.BG_COLOR=orange --set global.appVersion=v2
